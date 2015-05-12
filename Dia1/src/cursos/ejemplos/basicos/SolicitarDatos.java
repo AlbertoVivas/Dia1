@@ -8,10 +8,10 @@ public class SolicitarDatos {
 	 * @param args
 	 */
 	
-	public static String pedirString (){
+	public String pedirString (){
 		return sc.next();
 	}
-	public static int pedirInt () {
+	public int pedirInt () {
 		return sc.nextInt();
 	}
 	
@@ -19,10 +19,10 @@ public class SolicitarDatos {
 	
 	
 	
-	public static String pedirNombreOpt(){
+	public String pedirNombreOpt(){
 		return sc.next();
 	}
-	public static int pedirEdadOpt(){
+	public int pedirEdadOpt(){
 			return sc.nextInt();
 		}
 	

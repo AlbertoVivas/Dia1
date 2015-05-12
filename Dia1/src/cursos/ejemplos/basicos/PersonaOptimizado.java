@@ -28,6 +28,8 @@ public class PersonaOptimizado implements Serializable {
 		System.out.println("El nombre de la persona introducido es: "+this.nombre+" y su edad: "+this.edad);
 		}
 	
+	
+	
 	public void PersonaIgual(PersonaOptimizado persona1 , PersonaOptimizado persona2){
 		//if (persona1.nombre == persona2.nombre && persona1.edad == persona2.edad ) {
 		if (persona1.nombre.equals(persona2.nombre) && persona1.edad == persona2.edad ) {
