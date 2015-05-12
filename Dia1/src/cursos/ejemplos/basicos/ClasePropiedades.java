@@ -27,9 +27,10 @@ import java.util.Properties;
 public class ClasePropiedades {
 
 	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * Con este metodo podemos ver por consola y 
+	 * a su vez guardamos un archivo
+	 * @param fis
+	 * @throws IOException
 	 */
 	
 	public static void imprimirPropiedades(FileInputStream fis) throws IOException{
@@ -38,11 +39,14 @@ public class ClasePropiedades {
 		FileWriter fw = null;
 		//cargamos las propiedades
 		propiedades.load(fis);
+		
+		//
 		System.out.println(propiedades.getProperty("outfile"));
 		System.out.println(propiedades.getProperty("start"));
 		System.out.println(propiedades.getProperty("body"));
 		System.out.println(propiedades.getProperty("end"));
 		
+		//creamos el archivo de respaldo
 		file = new File(propiedades.getProperty("outfile"));
 		file.createNewFile();
 		fw = new FileWriter(file);
@@ -54,6 +58,11 @@ public class ClasePropiedades {
 		
 	}
 	
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		FileInputStream fis = null;
