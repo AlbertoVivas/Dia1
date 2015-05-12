@@ -3,9 +3,11 @@
  */
 package cursos.ejemplos.basicos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,7 +26,7 @@ public class SerializarPersona {
 	 * @throws ClassNotFoundException 
 	 */
 	
-	private PersonaOptimizado [] recuperarPersona(String fichero) throws FileNotFoundException, IOException{
+	private PersonaOptimizado [] recuperarFicheroDePersona(String fichero) throws FileNotFoundException, IOException{
 		PersonaOptimizado [] respuesta = null;
 		ObjectInputStream ois = null;
 		
@@ -37,6 +39,22 @@ public class SerializarPersona {
 			ois.close();
 		}
 		return respuesta;
+	}
+	
+	private void escribirPersonaEnFichero(PersonaOptimizado [] persona, String fichero) throws IOException{
+		ObjectOutputStream oos = null;
+		
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(fichero));
+			oos.writeObject(persona);
+		} catch (Exception e) {
+			System.out.println("Error al escribir el fichero: "+fichero);
+			// TODO: handle exception
+		}finally{
+			oos.close();
+		}
+		
+		
 	}
 	
 	private void salvarPersona(PersonaOptimizado persona[] , String fichero) throws FileNotFoundException, IOException{
@@ -77,24 +95,27 @@ public class SerializarPersona {
 	
 	private PersonaOptimizado[] introducirPersona(PersonaOptimizado [] persona){
 		PersonaOptimizado respuesta [] = null;
-		SolicitarDatos sd = new SolicitarDatos();
-		String nombre = null;
-		int edad = 0;
 		
-		System.out.print("introducir Nombre: ");
-		nombre = sd.pedirNombreOpt();
-		System.out.println();
-		System.out.print("Introducir edad: ");
-		edad = sd.pedirEdadOpt();
-		System.out.println();
-		
-		respuesta = new PersonaOptimizado [persona.length+1];
-		for (int i = 0; i < persona.length; i++) {
-			respuesta[i]=persona[i];
+		if (persona != null) {
+
+			SolicitarDatos sd = new SolicitarDatos();
+			String nombre = null;
+			int edad = 0;
+
+			System.out.print("introducir Nombre: ");
+			nombre = sd.pedirNombreOpt();
+			System.out.println();
+			System.out.print("Introducir edad: ");
+			edad = sd.pedirEdadOpt();
+			System.out.println();
+
+			respuesta = new PersonaOptimizado[persona.length + 1];
+			for (int i = 0; i < persona.length; i++) {
+				respuesta[i] = persona[i];
+			}
+
+			respuesta[persona.length] = new PersonaOptimizado(nombre, edad);
 		}
-		
-		respuesta[persona.length]= new PersonaOptimizado(nombre, edad);
-	
 		return respuesta;
 	}
 	
@@ -104,13 +125,22 @@ public class SerializarPersona {
 		// TODO Auto-generated method stub
 		SerializarPersona file = new SerializarPersona();
 		PersonaOptimizado [] persona = null;
+		PersonaOptimizado [] masPersona = null;
 		String fichero = "Archivo de personas.dat";
 		
+		PersonaOptimizado [] personainicial = new PersonaOptimizado[3];
+		personainicial[0]= new PersonaOptimizado("caca", 21);
+		personainicial[1]= new PersonaOptimizado("kk", 80);
+		personainicial[2]= new PersonaOptimizado("popo", 1);
 		
-		persona = file.recuperarPersona(fichero); //recupero las personas guardadas
+		file.escribirPersonaEnFichero(personainicial, fichero);
+		
+		
+		persona = file.recuperarFicheroDePersona(fichero); //recupero las personas guardadas
 		
 		file.mostrarArrayPersona(persona);
-		
+		masPersona = file.bucleIntroducirPersona(persona);
+		file.mostrarArrayPersona(masPersona);
 		
 		file.salvarPersona(persona, fichero);//Salvo las personas en el archivo
 		

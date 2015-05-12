@@ -40,7 +40,7 @@ public class ClasePropiedades {
 		//cargamos las propiedades
 		propiedades.load(fis);
 		
-		//
+		//imprimo por consola opcional
 		System.out.println(propiedades.getProperty("outfile"));
 		System.out.println(propiedades.getProperty("start"));
 		System.out.println(propiedades.getProperty("body"));
